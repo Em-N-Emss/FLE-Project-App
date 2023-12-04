@@ -54,7 +54,7 @@ class BossWidget extends StatelessWidget {
             '${(healthPercentage * 100).toStringAsFixed(0)}%',
             style: TextStyle(fontSize: 16.0),
           ),
-          if (showResult)
+          if (showResult && bossHealth <=0)
             Text(
               'Boss defeated!',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),

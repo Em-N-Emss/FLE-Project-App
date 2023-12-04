@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class HealthBar extends StatelessWidget {
+class PlayerHealthBar extends StatelessWidget {
   final double health;
   final double barHeight;
 
-  const HealthBar({
+  const PlayerHealthBar({
     Key? key,
     required this.health,
     this.barHeight = 10.0,

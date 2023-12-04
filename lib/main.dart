@@ -37,12 +37,14 @@ class _QuizPageState extends State<QuizPage> {
   String selectedAnswer = '';
   bool _showResult = false;
   int _score = 0; // New variable to keep track of the score
-  double _scoreMultiplier = 0.0; // Score multiplier
+  double _scoreMultiplier = 1; // Score multiplier
   double _bossHealth = 100; // Boss health
   double _maxBossHealth = 100.0; // Define the maxBossHealth variable
   int _consecutiveGoodAnswers = 0; // Add the consecutiveGoodAnswers variable
   double _healthImpactPerQuestion = 10.0; // Define the health impact per question
   String _userChoice = '';
+   double _playerHealth = 100; // Player health
+  
 
   @override
   Widget build(BuildContext context) {
@@ -111,11 +113,28 @@ class _QuizPageState extends State<QuizPage> {
               'Score: $_score',
               style: TextStyle(fontSize: 24.0),
             ),
+            //Multiplicator of good answer
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'x',
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                Text(
+                  _scoreMultiplier.toString(),
+                  style: TextStyle(fontSize: 24.0),
+                ),
+              ],
+            ),
             BossWidget(
               bossHealth: _bossHealth, // Provide the bossHealth argument here
               maxBossHealth: _maxBossHealth,
               showResult: _showResult,
             ), // Add this line to display the boss widget
+            PlayerHealthBar(
+              health: _playerHealth
+              ),
           ],
         ),
       ),
@@ -131,15 +150,14 @@ class _QuizPageState extends State<QuizPage> {
 
       if (_questions[_currentQuestionIndex].isCorrect) {
         _score++; // Increment the score by 1 for each correct answer
-        _score += (_score * _scoreMultiplier)
-            .toInt(); // Increment the score by the value of the score multiplier
         _scoreMultiplier += 0.5; // Increment the score multiplier by 0.5
         _consecutiveGoodAnswers++;
         _userChoice = 'Correct';
 
         // Check if the consecutive good answers count is greater than a threshold
-        if (_consecutiveGoodAnswers >= 3) {
-          _scoreMultiplier = (_scoreMultiplier + 0.5).clamp(1.0, 2.0);
+        if (_consecutiveGoodAnswers >= 2) {
+          _score +=  _scoreMultiplier.toInt(); // Increment the score by the value of the score multiplier
+          _scoreMultiplier = (_scoreMultiplier + 0.5).clamp(1.0, 3.0);
           // Decrease the boss health based on the consecutive good answers
           _bossHealth -= _healthImpactPerQuestion * _scoreMultiplier;
         } else {
@@ -147,7 +165,7 @@ class _QuizPageState extends State<QuizPage> {
           _bossHealth -= _healthImpactPerQuestion;
         }
       } else {
-        _scoreMultiplier = 0.0; // Reset the score multiplier
+        _scoreMultiplier = 1; // Reset the score multiplier
         _consecutiveGoodAnswers =0; // Reset the consecutive good answers count if the answer is incorrect
         _userChoice = 'Incorrect';
       }
@@ -215,7 +233,7 @@ class _QuizPageState extends State<QuizPage> {
       _currentQuestionIndex = 0;
       _showResult = false;
       _score = 0;
-      _scoreMultiplier = 0.0;
+      _scoreMultiplier = 1;
       _consecutiveGoodAnswers = 0;
     });
   }
