@@ -15,13 +15,19 @@ class PlayerHealthBar extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final barWidth = screenWidth * 0.8; // Adjust the width as needed
 
+    final int numHearts = (health / 25).ceil(); // Calculate the number of hearts based on the health
+
     return Container(
       height: barHeight,
       width: barWidth,
-      child: LinearProgressIndicator(
-        value: health / 100, // Assuming health is a value between 0 and 100
-        backgroundColor: Colors.grey[300],
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+      child: Row(
+        children: List.generate(
+          4, // Total number of hearts
+          (index) => Icon(
+            index < numHearts ? Icons.favorite : Icons.favorite_border,
+            color: Colors.red, // Change color to personalize
+          ),
+        ),
       ),
     );
   }

@@ -166,8 +166,9 @@ class _QuizPageState extends State<QuizPage> {
         }
       } else {
         _scoreMultiplier = 1; // Reset the score multiplier
-        _consecutiveGoodAnswers =0; // Reset the consecutive good answers count if the answer is incorrect
+        _consecutiveGoodAnswers = 0; // Reset the consecutive good answers count if the answer is incorrect
         _userChoice = 'Incorrect';
+        _playerHealth -= 10; // Decrease the player's health by 10 for incorrect answers
       }
       _showResult = true;
     });
