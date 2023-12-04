@@ -43,6 +43,8 @@ class _QuizPageState extends State<QuizPage> {
   int _consecutiveGoodAnswers = 0; // Add the consecutiveGoodAnswers variable
   double _healthImpactPerQuestion = 10.0; // Define the health impact per question
   String _userChoice = '';
+   double _playerHealth = 100; // Player health
+  
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +132,9 @@ class _QuizPageState extends State<QuizPage> {
               maxBossHealth: _maxBossHealth,
               showResult: _showResult,
             ), // Add this line to display the boss widget
+            PlayerHealthBar(
+              health: _playerHealth
+              ),
           ],
         ),
       ),
@@ -228,7 +233,7 @@ class _QuizPageState extends State<QuizPage> {
       _currentQuestionIndex = 0;
       _showResult = false;
       _score = 0;
-      _scoreMultiplier = 0.0;
+      _scoreMultiplier = 1;
       _consecutiveGoodAnswers = 0;
     });
   }
