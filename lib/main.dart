@@ -36,13 +36,14 @@ class _QuizPageState extends State<QuizPage> {
   bool _showResult = false;
   int _score = 0; // New variable to keep track of the score
   double _scoreMultiplier = 0.0; // Score multiplier
-  int _bossHealth = 100; // Boss health
+  double _bossHealth = 100; // Boss health
+  double _maxBossHealth = 100.0; // Define the maxBossHealth variable
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('French Quiz'),
+        title: Text('FLE-Project French Quiz'),
       ),
       body: Center(
         child: Column(
@@ -66,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
                         'Score: $_score',
                         style: TextStyle(fontSize: 24.0),
                       ),
-                      BossWidget(), // Add this line to display the boss widget
+                      
                     ],
                   )
                 : Column(
@@ -98,6 +99,11 @@ class _QuizPageState extends State<QuizPage> {
               backgroundColor: Colors.grey,
               valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
             ),
+            BossWidget(
+              bossHealth: _bossHealth, // Provide the bossHealth argument here
+              maxBossHealth: _maxBossHealth,
+              showResult: _showResult,
+            ), // Add this line to display the boss widget
           ],
         ),
       ),
