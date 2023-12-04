@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-
+import 'boss_widget.dart';
 void main() {
   runApp(FrenchQuizApp());
 }
@@ -66,6 +66,7 @@ class _QuizPageState extends State<QuizPage> {
                         'Score: $_score',
                         style: TextStyle(fontSize: 24.0),
                       ),
+                      BossWidget(), // Add this line to display the boss widget
                     ],
                   )
                 : Column(
@@ -92,9 +93,10 @@ class _QuizPageState extends State<QuizPage> {
                     ],
                   ),
             SizedBox(height: 20.0),
-            Text(
-              'Boss Health: $_bossHealth',
-              style: TextStyle(fontSize: 24.0),
+            LinearProgressIndicator(
+              value: _bossHealth / 100, // Replace 100 with the maximum boss health value
+              backgroundColor: Colors.grey,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
             ),
           ],
         ),
