@@ -144,6 +144,43 @@ class _QuizPageState extends State<QuizPage> {
 
   void _nextQuestion() {
     setState(() {
+      if (_bossHealth <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Container(
+            child: Row(
+              children: [
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+                SizedBox(width: 8.0),
+                Text(
+                  'You win!',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.all(16.0),
+          padding: EdgeInsets.symmetric(
+            vertical: 12.0,
+            horizontal: 16.0,
+          ),
+        ),
+      );
+      // Reset the game or navigate to a new screen
+      return;
+    }
       _currentQuestionIndex = Random().nextInt(_questions.length); // Randomly select next question
       _showResult = false;
     });
