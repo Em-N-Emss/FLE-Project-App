@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'boss_widget.dart';
+import 'player_health_bar.dart';
 
 void main() {
   runApp(FrenchQuizApp());
@@ -40,8 +41,7 @@ class _QuizPageState extends State<QuizPage> {
   double _bossHealth = 100; // Boss health
   double _maxBossHealth = 100.0; // Define the maxBossHealth variable
   int _consecutiveGoodAnswers = 0; // Add the consecutiveGoodAnswers variable
-  double _healthImpactPerQuestion =
-      10.0; // Define the health impact per question
+  double _healthImpactPerQuestion = 10.0; // Define the health impact per question
 
   @override
   Widget build(BuildContext context) {
@@ -96,13 +96,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     ],
                   ),
-            SizedBox(height: 20.0),
-            LinearProgressIndicator(
-              value: _bossHealth /
-                  100, // Replace 100 with the maximum boss health value
-              backgroundColor: Colors.grey,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-            ),
+           
             BossWidget(
               bossHealth: _bossHealth, // Provide the bossHealth argument here
               maxBossHealth: _maxBossHealth,
@@ -191,8 +185,7 @@ class _QuizPageState extends State<QuizPage> {
         // Reset the game or navigate to a new screen
         return;
       }
-      _currentQuestionIndex =
-          Random().nextInt(_questions.length); // Randomly select next question
+      _currentQuestionIndex = Random().nextInt(_questions.length); // Randomly select next question
       _showResult = false;
     });
   }

@@ -14,15 +14,53 @@ class BossWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (showResult)
-          LinearProgressIndicator(
-            value: bossHealth / maxBossHealth,
-            backgroundColor: Colors.grey,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+    double healthPercentage = bossHealth / maxBossHealth;
+    double barWidth = MediaQuery.of(context).size.width * 0.8; // Adjust the width as needed
+
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+      child: Column(
+        children: [
+          Text(
+            'Boss Health',
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
-      ],
+          SizedBox(height: 8.0),
+          Stack(
+            children: [
+              Container(
+                width: barWidth,
+                height: 20.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.grey.shade300,
+                ),
+              ),
+              FractionallySizedBox(
+                widthFactor: healthPercentage,
+                child: Container(
+                  width: barWidth,
+                  height: 20.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.0),
+          Text(
+            '${(healthPercentage * 100).toStringAsFixed(0)}%',
+            style: TextStyle(fontSize: 16.0),
+          ),
+          if (showResult)
+            Text(
+              'Boss defeated!',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+        ],
+      ),
     );
   }
 }
