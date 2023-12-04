@@ -42,61 +42,75 @@ class _QuizPageState extends State<QuizPage> {
   double _maxBossHealth = 100.0; // Define the maxBossHealth variable
   int _consecutiveGoodAnswers = 0; // Add the consecutiveGoodAnswers variable
   double _healthImpactPerQuestion = 10.0; // Define the health impact per question
+  String _userChoice = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FLE-Project French Quiz'),
+        title: Text('Quiz App'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _showResult
-                ? Column(
+            if (!_showResult) // Hide the question and answers when _showResult is false
+              Column(
+                children: [
+                  Text(
+                    _questions[_currentQuestionIndex].questionText,
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                  SizedBox(height: 20.0),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        _questions[_currentQuestionIndex].isCorrect
-                            ? 'Correct!'
-                            : 'Incorrect!',
-                        style: TextStyle(fontSize: 24.0),
-                      ),
-                      ElevatedButton(
-                        onPressed: _nextQuestion,
-                        child: Text('Next Question'),
-                      ),
-                      Text(
-                        'Score: $_score',
-                        style: TextStyle(fontSize: 24.0),
-                      ),
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        _questions[_currentQuestionIndex].questionText,
-                        style: TextStyle(fontSize: 24.0),
-                      ),
-                      SizedBox(height: 20.0),
                       Column(
                         children: _questions[_currentQuestionIndex]
                             .options
-                            .map((option) => ElevatedButton(
-                                  onPressed: () => _checkAnswer(option),
-                                  child: Text(option),
-                                ))
+                            .sublist(0, _questions[_currentQuestionIndex].options.length ~/ 2)
+                            .map(
+                              (option) => ElevatedButton(
+                                onPressed: () => _checkAnswer(option),
+                                child: Text(option),
+                              ),
+                            )
                             .toList(),
                       ),
-                      Text(
-                        'Score: $_score',
-                        style: TextStyle(fontSize: 24.0),
+                      SizedBox(width: 16.0),
+                      Column(
+                        children: _questions[_currentQuestionIndex]
+                            .options
+                            .sublist(_questions[_currentQuestionIndex].options.length ~/ 2)
+                            .map(
+                              (option) => ElevatedButton(
+                                onPressed: () => _checkAnswer(option),
+                                child: Text(option),
+                              ),
+                            )
+                            .toList(),
                       ),
                     ],
                   ),
-           
+                ],
+              ),
+            if (_showResult)
+              Text(
+                _userChoice,
+                style: TextStyle(fontSize: 24.0),
+              ),
+            if (_showResult)
+              SizedBox(height: 20.0),
+            if (_showResult)
+              ElevatedButton(
+                onPressed: _nextQuestion,
+                child: Text('Next Question'),
+              ),
+            SizedBox(height: 20.0),
+            Text(
+              'Score: $_score',
+              style: TextStyle(fontSize: 24.0),
+            ),
             BossWidget(
               bossHealth: _bossHealth, // Provide the bossHealth argument here
               maxBossHealth: _maxBossHealth,
@@ -121,6 +135,7 @@ class _QuizPageState extends State<QuizPage> {
             .toInt(); // Increment the score by the value of the score multiplier
         _scoreMultiplier += 0.5; // Increment the score multiplier by 0.5
         _consecutiveGoodAnswers++;
+        _userChoice = 'Correct';
 
         // Check if the consecutive good answers count is greater than a threshold
         if (_consecutiveGoodAnswers >= 3) {
@@ -133,9 +148,10 @@ class _QuizPageState extends State<QuizPage> {
         }
       } else {
         _scoreMultiplier = 0.0; // Reset the score multiplier
-        _consecutiveGoodAnswers =
-            0; // Reset the consecutive good answers count if the answer is incorrect
+        _consecutiveGoodAnswers =0; // Reset the consecutive good answers count if the answer is incorrect
+        _userChoice = 'Incorrect';
       }
+      _showResult = true;
     });
   }
 
@@ -186,6 +202,7 @@ class _QuizPageState extends State<QuizPage> {
         return;
       }
       _currentQuestionIndex = Random().nextInt(_questions.length); // Randomly select next question
+      _userChoice = '';
       _showResult = false;
     });
   }
