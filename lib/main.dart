@@ -111,12 +111,12 @@ class _QuizPageState extends State<QuizPage> {
               'Score: $_score',
               style: TextStyle(fontSize: 24.0),
             ),
-             if (_showResult) // Add this condition to display the multiplicator of good answers
+            //Multiplicator of good answer
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Multiplicator: ',
+                  'x',
                   style: TextStyle(fontSize: 24.0),
                 ),
                 Text(
