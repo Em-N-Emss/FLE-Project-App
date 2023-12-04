@@ -38,6 +38,8 @@ class _QuizPageState extends State<QuizPage> {
   double _scoreMultiplier = 0.0; // Score multiplier
   double _bossHealth = 100; // Boss health
   double _maxBossHealth = 100.0; // Define the maxBossHealth variable
+  int _consecutiveGoodAnswers = 0; // Add the consecutiveGoodAnswers variable
+  double _healthImpactPerQuestion = 10.0; // Define the health impact per question
 
   @override
   Widget build(BuildContext context) {
@@ -119,11 +121,23 @@ class _QuizPageState extends State<QuizPage> {
 
        if (_questions[_currentQuestionIndex].isCorrect) {
         _score++; // Increment the score by 1 for each correct answer
-        _score += _scoreMultiplier.toInt(); // Increment the score by the value of the score multiplier
+        _score += (_score * _scoreMultiplier).toInt(); // Increment the score by the value of the score multiplier
         _scoreMultiplier += 0.5; // Increment the score multiplier by 0.5
-         _bossHealth -= 10; // Decrement the boss health by 10 for each correct answer
+        _consecutiveGoodAnswers++;
+
+         // Check if the consecutive good answers count is greater than a threshold
+      if (_consecutiveGoodAnswers >= 3) {
+         _scoreMultiplier = (_scoreMultiplier + 0.5).clamp(1.0, 2.0);
+        // Decrease the boss health based on the consecutive good answers
+        _bossHealth -= _healthImpactPerQuestion * _scoreMultiplier;
+        
+      } else {
+        // Decrease the boss health by the regular health impact per question
+        _bossHealth -= _healthImpactPerQuestion;
+      }
       } else {
         _scoreMultiplier = 0.0; // Reset the score multiplier
+        _consecutiveGoodAnswers = 0;  // Reset the consecutive good answers count if the answer is incorrect
       }
     });
   }
