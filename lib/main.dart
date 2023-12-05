@@ -133,7 +133,7 @@ class _QuizPageState extends State<QuizPage> {
               showResult: _showResult,
             ), // Add this line to display the boss widget
             PlayerHealthBar(
-              playerHealth: _playerHealth
+              playerHealth: _playerHealth,
               ),
           ],
         ),
@@ -199,6 +199,51 @@ class _QuizPageState extends State<QuizPage> {
             ),
             duration: Duration(days: 365), // Set a very long duration to make the SnackBar stay visible
             backgroundColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(
+              vertical: 12.0,
+              horizontal: 16.0,
+            ),
+            action: SnackBarAction(
+              label: 'Restart',
+              onPressed: () {
+                // Reset the game
+                _resetGame();
+              },
+            ),
+          ),
+        );
+        // Reset the game or navigate to a new screen
+        return;
+      }
+
+      if (_playerHealth < 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Container(
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  SizedBox(width: 8.0),
+                  Text(
+                    'You loose!',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            duration: Duration(days: 365), // Set a very long duration to make the SnackBar stay visible
+            backgroundColor: Colors.red,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
             ),
