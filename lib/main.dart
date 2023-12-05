@@ -276,6 +276,7 @@ class _QuizPageState extends State<QuizPage> {
     // For example, reset the boss health, current question index, and other relevant variables
     setState(() {
       _bossHealth = 100;
+      _playerHealth = 100;
       _currentQuestionIndex = 0;
       _showResult = false;
       _score = 0;
