@@ -221,7 +221,7 @@ class _QuizPageState extends State<QuizPage> {
         return;
       }
 
-      if (_playerHealth < 0) {
+      if (_playerHealth <= 0) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Container(
