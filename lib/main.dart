@@ -25,7 +25,7 @@ class QuizPage extends StatefulWidget {
   _QuizPageState createState() => _QuizPageState();
 }
 
-class _QuizPageState extends State<QuizPage> {
+class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin {
   final List<Question> _questions = [
     Question('Bonjour', ['Hello', 'Goodbye', 'Thank you', 'Please'], 'Hello'),
     Question('Merci', ['Please', 'Hello', 'Thank you', 'Goodbye'], 'Thank you'),
@@ -38,16 +38,40 @@ class _QuizPageState extends State<QuizPage> {
   bool _showResult = false;
   int _score = 0; // New variable to keep track of the score
   double _scoreMultiplier = 1; // Score multiplier
+  late AnimationController _flameAnimationController;
   double _bossHealth = 100; // Boss health
   double _maxBossHealth = 100.0; // Define the maxBossHealth variable
   int _consecutiveGoodAnswers = 0; // Add the consecutiveGoodAnswers variable
   double _healthImpactPerQuestion = 10.0; // Define the health impact per question
   String _userChoice = '';
   double _playerHealth = 100; // Player health
+
+    @override
+  void initState() {
+    super.initState();
+    _flameAnimationController = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _flameAnimationController.dispose();
+    super.dispose();
+  }
   
 
   @override
   Widget build(BuildContext context) {
+    Color scoreMultiplierColor;
+    if (_scoreMultiplier == 3) {
+      scoreMultiplierColor = Colors.red;
+    } else if (_scoreMultiplier > 1.5) {
+      scoreMultiplierColor = Colors.orange;
+    } else {
+      scoreMultiplierColor = Colors.black;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Quiz App'),
@@ -121,9 +145,52 @@ class _QuizPageState extends State<QuizPage> {
                   'x',
                   style: TextStyle(fontSize: 24.0),
                 ),
-                Text(
-                  _scoreMultiplier.toString(),
-                  style: TextStyle(fontSize: 24.0),
+                Visibility(
+                  visible: _scoreMultiplier == 3,
+                  child: Text(
+                    _scoreMultiplier.toString(),
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: scoreMultiplierColor,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: _scoreMultiplier == 3,
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    decoration: BoxDecoration(
+                      color: scoreMultiplierColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: AnimatedBuilder(
+                        animation: _flameAnimationController,
+                        builder: (BuildContext context, Widget? child) {
+                          return Transform.rotate(
+                            angle: _flameAnimationController.value * 2 * pi,
+                            child: Icon(
+                              Icons.wb_incandescent,
+                              color: Colors.yellow,
+                              size: 24.0,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                
+                Visibility(
+                  visible: _scoreMultiplier != 3,
+                  child: Text(
+                    _scoreMultiplier.toString(),
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: scoreMultiplierColor,
+                    ),
+                  ),
                 ),
               ],
             ),
