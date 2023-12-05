@@ -217,14 +217,13 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
 
       if (_questions[_currentQuestionIndex].isCorrect) {
         _score++; // Increment the score by 1 for each correct answer
-        _scoreMultiplier += 0.5; // Increment the score multiplier by 0.5
+         _scoreMultiplier = (_scoreMultiplier + 0.5).clamp(1.0, 3.0); // Increment the score multiplier by 0.5
         _consecutiveGoodAnswers++;
         _userChoice = 'Correct';
 
         // Check if the consecutive good answers count is greater than a threshold
         if (_consecutiveGoodAnswers >= 2) {
           _score +=  _scoreMultiplier.toInt(); // Increment the score by the value of the score multiplier
-          _scoreMultiplier = (_scoreMultiplier + 0.5).clamp(1.0, 3.0);
           // Decrease the boss health based on the consecutive good answers
           _bossHealth -= _healthImpactPerQuestion * _scoreMultiplier;
         } else {
