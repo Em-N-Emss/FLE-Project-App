@@ -14,7 +14,7 @@ class BossWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double healthPercentage = bossHealth / maxBossHealth;
+    double healthPercentage = bossHealth.clamp(0, maxBossHealth) / maxBossHealth;
     double barWidth = MediaQuery.of(context).size.width * 0.8; // Adjust the width as needed
 
     return Container(
@@ -37,7 +37,7 @@ class BossWidget extends StatelessWidget {
                 ),
               ),
               FractionallySizedBox(
-                widthFactor: healthPercentage,
+                widthFactor: bossHealth > 0.0 ? healthPercentage : 0.0,
                 child: Container(
                   width: barWidth,
                   height: 20.0,
