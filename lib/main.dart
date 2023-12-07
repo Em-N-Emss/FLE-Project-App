@@ -42,7 +42,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
   double _bossHealth = 100; // Boss health
   double _maxBossHealth = 100.0; // Define the maxBossHealth variable
   int _consecutiveGoodAnswers = 0; // Add the consecutiveGoodAnswers variable
-  double _healthImpactPerQuestion = 10.0; // Define the health impact per question
+  double _healthImpactPerQuestion = 5.0; // Define the health impact per question
   String _userChoice = '';
   double _playerHealth = 100; // Player health
 
