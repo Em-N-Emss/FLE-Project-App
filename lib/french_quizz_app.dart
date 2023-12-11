@@ -9,9 +9,9 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin {
   final List<Question> _questions = [
-    Question('Bonjour', ['Hello', 'Goodbye', 'Thank you', 'Please'], 'Hello'),
-    Question('Merci', ['Please', 'Hello', 'Thank you', 'Goodbye'], 'Thank you'),
-    Question('Oui', ['No', 'Yes', 'Maybe', 'Never'], 'Yes'),
+    Question("Morceau de carton pour voyager ?", ['Le ticket', 'La porte', 'La carte', 'Le siège'], "Le ticket"),
+    Question("Je ... le métro.", ['Prends', 'Voyage', 'Prent', 'Monte'], 'Prends'),
+    Question("Que dit-on pour s'excuser ?", ['Pardon', 'Merci', 'Au revoir', 'Salut'], 'Pardon'),
     // Add more questions here
   ];
 
@@ -56,9 +56,16 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz App'),
+        title: Text('Séquence 1 : Prendre les transports'),
       ),
-      body: Center(
+      //body: Center( // body: SingleChildScrollView( To remove the blank space between the title and question
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/fond_app.png'), // Replace with your image path
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -67,7 +74,18 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
                 children: [
                   Text(
                     _questions[_currentQuestionIndex].questionText,
-                    style: TextStyle(fontSize: 24.0),
+                    //style: TextStyle(fontSize: 24.0),
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, // Set the text color to white for contrast
+                      shadows: [
+                        Shadow(
+                          color: Colors.white, // Set the shadow color to black
+                          blurRadius: 50.0,
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 20.0),
                   Row(
@@ -105,7 +123,18 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
             if (_showResult)
               Text(
                 _userChoice,
-                style: TextStyle(fontSize: 24.0),
+                //style: TextStyle(fontSize: 24.0),
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Set the text color to white for contrast
+                  shadows: [
+                    Shadow(
+                      color: Colors.white, // Set the shadow color to black
+                      blurRadius: 50.0,
+                    ),
+                  ],
+                ),
               ),
             if (_showResult)
               SizedBox(height: 20.0),
@@ -117,7 +146,16 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
             SizedBox(height: 20.0),
             Text(
               'Score: $_score',
-              style: TextStyle(fontSize: 24.0),
+              style: TextStyle(
+                fontSize: 24.0,
+                color: Colors.white, // Set the text color to white for contrast
+                shadows: [
+                  Shadow(
+                    color: Colors.black, // Set the shadow color to black
+                    blurRadius: 50.0,
+                  ),
+                ],
+              ),
             ),
             //Multiplicator of good answer
             Row(
@@ -125,7 +163,18 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
               children: [
                 Text(
                   'x',
-                  style: TextStyle(fontSize: 24.0),
+                  //style: TextStyle(fontSize: 24.0),
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black, // Set the text color to white for contrast
+                    shadows: [
+                      Shadow(
+                        color: Colors.white, // Set the shadow color to black
+                        blurRadius: 50.0,
+                      ),
+                    ],
+                  ),
                 ),
                 Visibility(
                   visible: _scoreMultiplier == 3,
@@ -133,7 +182,14 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
                     _scoreMultiplier.toString(),
                     style: TextStyle(
                       fontSize: 24.0,
-                      color: scoreMultiplierColor,
+                      fontWeight: FontWeight.bold,
+                      color: scoreMultiplierColor, // Set the text color to white for contrast
+                      shadows: [
+                        Shadow(
+                          color: Colors.white, // Set the shadow color to black
+                          blurRadius: 50.0,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -170,7 +226,14 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
                     _scoreMultiplier.toString(),
                     style: TextStyle(
                       fontSize: 24.0,
-                      color: scoreMultiplierColor,
+                      fontWeight: FontWeight.bold,
+                      color: scoreMultiplierColor, // Set the text color to white for contrast
+                      shadows: [
+                        Shadow(
+                          color: Colors.white, // Set the shadow color to black
+                          blurRadius: 50.0,
+                        ),
+                      ],
                     ),
                   ),
                 ),

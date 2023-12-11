@@ -23,7 +23,18 @@ class BossWidget extends StatelessWidget {
         children: [
           Text(
             'Boss Health',
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            //style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black, // Set the text color to white for contrast
+              shadows: [
+                Shadow(
+                  color: Colors.white, // Set the shadow color to black
+                  blurRadius: 50.0,
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 8.0),
           Stack(
@@ -52,7 +63,18 @@ class BossWidget extends StatelessWidget {
           SizedBox(height: 8.0),
           Text(
             '${(healthPercentage * 100).toStringAsFixed(0)}%',
-            style: TextStyle(fontSize: 16.0),
+            //style: TextStyle(fontSize: 16.0),
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black, // Set the text color to white for contrast
+              shadows: [
+                Shadow(
+                  color: Colors.white, // Set the shadow color to black
+                  blurRadius: 50.0,
+                ),
+              ],
+            ),
           ),
           if (showResult && bossHealth <=0)
             Text(
