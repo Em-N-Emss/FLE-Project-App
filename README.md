@@ -58,9 +58,9 @@ Pour lancer l'application, suivez ces étapes :
 
 1. Assurez-vous d'avoir Flutter et Dart SDK installés sur votre machine. Vous pouvez les télécharger depuis le site officiel de Flutter : [https://flutter.dev](https://flutter.dev)
 
-2. Clonez ce dépôt sur votre machine locale en utilisant Git : ```git clone <repository_url>```
+2. Clonez ce dépôt sur votre machine locale en utilisant Git : ```git clone https://github.com/EmRenRen/FLE-Project-App```
 
-3. Accédez au répertoire racine du projet : ```cd FLE-Project-French-Quiz```
+3. Accédez au répertoire racine du projet : ```cd ./FLE-Project-French-Quiz```
 
 4. Récupérez les dépendances du projet en exécutant la commande suivante :``` flutter pub get```
 
