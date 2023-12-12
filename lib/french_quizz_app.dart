@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:math';
 import 'utils/boss_widget.dart';
 import 'utils/player_health_bar.dart';
@@ -9,7 +10,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin {
   final List<Question> _questions = [
-    Question("Morceau de carton pour voyager ?", ['Le ticket', 'La porte', 'La carte', 'Le siège'], "Le ticket"),
+    Question("Bout de carton pour voyager ?", ['Le ticket', 'La porte', 'La carte', 'Le siège'], "Le ticket"),
     Question("Je ... le métro.", ['Prends', 'Voyage', 'Prent', 'Monte'], 'Prends'),
     Question("Que dit-on pour s'excuser ?", ['Pardon', 'Merci', 'Au revoir', 'Salut'], 'Pardon'),
     // Add more questions here
@@ -72,11 +73,19 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
             if (!_showResult) // Hide the question and answers when _showResult is false
               Column(
                 children: [
+                  Align(
+                    child : LimitedBox(
+                      maxWidth : 200,
+                      maxHeight : 200,
+                      child : Lottie.network("https://lottie.host/644bc77a-bff5-44e4-a4b7-0631692f3d19/eIr0zP64im.json"),
+                      
+                    )
+                  ),
                   Text(
                     _questions[_currentQuestionIndex].questionText,
-                    //style: TextStyle(fontSize: 24.0),
+                    //style: TextStyle(fontSize: 28.0),
                     style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 28.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.black, // Set the text color to white for contrast
                       shadows: [
@@ -123,9 +132,9 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
             if (_showResult)
               Text(
                 _userChoice,
-                //style: TextStyle(fontSize: 24.0),
+                //style: TextStyle(fontSize: 28.0),
                 style: TextStyle(
-                  fontSize: 24.0,
+                  fontSize: 28.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black, // Set the text color to white for contrast
                   shadows: [
@@ -147,7 +156,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
             Text(
               'Score: $_score',
               style: TextStyle(
-                fontSize: 24.0,
+                fontSize: 28.0,
                 color: Colors.white, // Set the text color to white for contrast
                 shadows: [
                   Shadow(
@@ -163,9 +172,8 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
               children: [
                 Text(
                   'x',
-                  //style: TextStyle(fontSize: 24.0),
                   style: TextStyle(
-                    fontSize: 24.0,
+                    fontSize: 28.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black, // Set the text color to white for contrast
                     shadows: [
@@ -178,54 +186,39 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
                 ),
                 Visibility(
                   visible: _scoreMultiplier == 3,
-                  child: Text(
-                    _scoreMultiplier.toString(),
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      color: scoreMultiplierColor, // Set the text color to white for contrast
-                      shadows: [
-                        Shadow(
-                          color: Colors.white, // Set the shadow color to black
-                          blurRadius: 50.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: _scoreMultiplier == 3,
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
-                    decoration: BoxDecoration(
-                      color: scoreMultiplierColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: AnimatedBuilder(
-                        animation: _flameAnimationController,
-                        builder: (BuildContext context, Widget? child) {
-                          return Transform.rotate(
-                            angle: _flameAnimationController.value * 2 * pi,
-                            child: Icon(
-                              Icons.wb_incandescent,
-                              color: Colors.yellow,
-                              size: 24.0,
+                  child: Row(
+                    children: [
+                      Text(
+                        _scoreMultiplier.toString(),
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: scoreMultiplierColor, // Set the text color to white for contrast
+                          shadows: [
+                            Shadow(
+                              color: Colors.white, // Set the shadow color to black
+                              blurRadius: 50.0,
                             ),
-                          );
-                        },
+                          ],
+                        ),
                       ),
-                    ),
+                      LimitedBox(
+                        maxWidth: 70, // Replace with your desired maximum width
+                        maxHeight: 70, // Replace with your desired maximum height
+                        child: ColorFiltered(
+                          colorFilter: ColorFilter.mode(Colors.orange.shade300, BlendMode.srcIn), // Replace with your desired color
+                          child: Lottie.network("https://lottie.host/08feb234-427e-4e39-8980-b2bd36e4334f/fSUf6pumkm.json"),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                
                 Visibility(
                   visible: _scoreMultiplier != 3,
                   child: Text(
                     _scoreMultiplier.toString(),
                     style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 28.0,
                       fontWeight: FontWeight.bold,
                       color: scoreMultiplierColor, // Set the text color to white for contrast
                       shadows: [
@@ -264,7 +257,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
         _score++; // Increment the score by 1 for each correct answer
          _scoreMultiplier = (_scoreMultiplier + 0.5).clamp(1.0, 3.0); // Increment the score multiplier by 0.5
         _consecutiveGoodAnswers++;
-        _userChoice = 'Correct';
+        _userChoice = 'Correcte';
 
         // Check if the consecutive good answers count is greater than a threshold
         if (_consecutiveGoodAnswers >= 2) {
@@ -278,7 +271,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
       } else {
         _scoreMultiplier = 1; // Reset the score multiplier
         _consecutiveGoodAnswers = 0; // Reset the consecutive good answers count if the answer is incorrect
-        _userChoice = 'Incorrect';
+        _userChoice = 'Incorrecte';
         _playerHealth -= 12.5; // Decrease the player's health by 10 for incorrect answers
       }
       _showResult = true;
