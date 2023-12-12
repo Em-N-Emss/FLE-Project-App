@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
@@ -6,6 +7,7 @@ import 'utils.dart';
 import 'package:fle_project/french_quizz_app.dart';
 
 class Accueil extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -111,10 +113,11 @@ class Accueil extends StatelessWidget {
                               0 * fem, 0 * fem, 0 * fem, 19 * fem),
                           child: TextButton(
                             onPressed: () {
-                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => FrenchQuizApp()),
-                                );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FrenchQuizApp()),
+                              );
                             },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
@@ -173,9 +176,11 @@ class Accueil extends StatelessWidget {
                                 // tantpisbgH1W (8:120)
                                 child: TextButton(
                                   onPressed: () {
-                                   Navigator.push(
+                                    Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => FrenchQuizApp()),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FrenchQuizApp()),
                                     );
                                   },
                                   style: TextButton.styleFrom(

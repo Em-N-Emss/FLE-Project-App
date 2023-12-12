@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:fle_project/utils/home.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'dart:math';
@@ -17,6 +18,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
     // Add more questions here
   ];
 
+  int _currentIndex = 1; // Initialize _currentIndex here
   int _currentQuestionIndex = 0;
   late String selectedAnswer;
   bool _showResult = false;
@@ -61,7 +63,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
         title: Text('Séquence 1 : Prendre les transports'),
         backgroundColor: Color.fromARGB(168, 152, 154, 182),
       ),
-      //body: Center( // body: SingleChildScrollView( To remove the blank space between the title and question
+      //body: Center( // body: SingleChildScrollView( To remove the blank space between the title and question  
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -254,29 +256,33 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
           ],
         ),
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-            backgroundColor: Color.fromARGB(248, 55, 60, 8),
-            color: Colors.green.shade800,
-            animationDuration: Duration(milliseconds: 300),
-            onTap: (index) {
-              print(index);
-            },
-            items: [
-              Icon(
-                Icons.home,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.favorite,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
-            ]),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //       backgroundColor: Color.fromARGB(248, 55, 60, 8),
+      //       color: Colors.green.shade800,
+      //       animationDuration: Duration(milliseconds: 300),
+      //       index: _currentIndex,
+      //       onTap: (index) {
+      //         setState(() {
+      //         _currentIndex = index; // Add this line to update the current index
+      //       });
+      //       },
+      //       items: [
+      //         Icon(
+      //           Icons.home,
+      //           color: Colors.white,
+      //         ),
+      //         Icon(
+      //           Icons.favorite,
+      //           color: Colors.white,
+      //         ),
+      //         Icon(
+      //           Icons.settings,
+      //           color: Colors.white,
+      //         ),
+      //       ]),
     );
   }
+  
 
   void _checkAnswer(String selectedAnswer) {
     setState(() {
