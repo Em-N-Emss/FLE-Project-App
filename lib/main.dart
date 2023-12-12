@@ -1,147 +1,88 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'boss_widget.dart';
+import 'utils/utils.dart';
+import 'utils/home.dart';
+import 'french_quizz_app.dart';
+
 void main() {
-  runApp(FrenchQuizApp());
+  runApp(MyApp());
 }
 
-class FrenchQuizApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'French Quiz',
+      title: 'FLE-Project',
+      debugShowCheckedModeBanner: false,
+      scrollBehavior: MyCustomScrollBehavior(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: QuizPage(),
-    );
-  }
-}
-
-class QuizPage extends StatefulWidget {
-  @override
-  _QuizPageState createState() => _QuizPageState();
-}
-
-class _QuizPageState extends State<QuizPage> {
-  final List<Question> _questions = [
-    Question('Bonjour', ['Hello', 'Goodbye', 'Thank you', 'Please'], 'Hello'),
-    Question('Merci', ['Please', 'Hello', 'Thank you', 'Goodbye'], 'Thank you'),
-    Question('Oui', ['No', 'Yes', 'Maybe', 'Never'], 'Yes'),
-    // Add more questions here
-  ];
-
-  int _currentQuestionIndex = 0;
-  String selectedAnswer = '';
-  bool _showResult = false;
-  int _score = 0; // New variable to keep track of the score
-  double _scoreMultiplier = 0.0; // Score multiplier
-  double _bossHealth = 100; // Boss health
-  double _maxBossHealth = 100.0; // Define the maxBossHealth variable
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('FLE-Project French Quiz'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _showResult
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        _questions[_currentQuestionIndex].isCorrect
-                            ? 'Correct!'
-                            : 'Incorrect!',
-                        style: TextStyle(fontSize: 24.0),
+      home: Scaffold(
+        body: Navigator(
+          key: navigatorKey,
+          initialRoute: '/',
+          onGenerateRoute: (RouteSettings settings) {
+            WidgetBuilder builder;
+            switch (settings.name) {
+              case '/':
+                builder = (_) => Accueil();
+                break;
+              case '/quiz':
+                builder = (_) => QuizPage();
+                break;
+              // Add your other pages here
+              case '/settings':
+                builder = (_) => Container(
+                      color: Colors.blue,
+                      child: Center(
+                        child: Text('Settings Page'),
                       ),
-                      ElevatedButton(
-                        onPressed: _nextQuestion,
-                        child: Text('Next Question'),
-                      ),
-                      Text(
-                        'Score: $_score',
-                        style: TextStyle(fontSize: 24.0),
-                      ),
-                      
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        _questions[_currentQuestionIndex].questionText,
-                        style: TextStyle(fontSize: 24.0),
-                      ),
-                      SizedBox(height: 20.0),
-                      Column(
-                        children: _questions[_currentQuestionIndex]
-                            .options
-                            .map((option) => ElevatedButton(
-                                  onPressed: () => _checkAnswer(option),
-                                  child: Text(option),
-                                ))
-                            .toList(),
-                      ),
-                      Text(
-                        'Score: $_score',
-                        style: TextStyle(fontSize: 24.0),
-                      ),
-                    ],
-                  ),
-            SizedBox(height: 20.0),
-            LinearProgressIndicator(
-              value: _bossHealth / 100, // Replace 100 with the maximum boss health value
-              backgroundColor: Colors.grey,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                    );
+                break;
+              default:
+                throw Exception('Invalid route: ${settings.name}');
+            }
+            return MaterialPageRoute(builder: builder, settings: settings);
+          },
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Color.fromARGB(248, 55, 60, 8),
+          color: Colors.green.shade800,
+          animationDuration: Duration(milliseconds: 300),
+          onTap: (index) {
+            switch (index) {
+              case 0:
+                navigatorKey.currentState?.pushNamed('/');
+                break;
+              case 1:
+                navigatorKey.currentState?.pushNamed('/quiz');
+                break;
+              case 2:
+                navigatorKey.currentState?.pushNamed('/settings');
+                break;
+              default:
+                throw Exception('Invalid index: $index');
+            }
+          },
+          items: [
+            Icon(
+              Icons.home,
+              color: Colors.white,
             ),
-            BossWidget(
-              bossHealth: _bossHealth, // Provide the bossHealth argument here
-              maxBossHealth: _maxBossHealth,
-              showResult: _showResult,
-            ), // Add this line to display the boss widget
+            Icon(
+              Icons.favorite,
+              color: Colors.white,
+            ),
+            Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
           ],
         ),
       ),
     );
   }
-
-  void _checkAnswer(String selectedAnswer) {
-    setState(() {
-      _questions[_currentQuestionIndex].selectedAnswer = selectedAnswer;
-      _questions[_currentQuestionIndex].isCorrect =
-          selectedAnswer == _questions[_currentQuestionIndex].correctAnswer;
-      _showResult = true;
-
-       if (_questions[_currentQuestionIndex].isCorrect) {
-        _score++; // Increment the score by 1 for each correct answer
-        _score += _scoreMultiplier.toInt(); // Increment the score by the value of the score multiplier
-        _scoreMultiplier += 0.5; // Increment the score multiplier by 0.5
-         _bossHealth -= 10; // Decrement the boss health by 10 for each correct answer
-      } else {
-        _scoreMultiplier = 0.0; // Reset the score multiplier
-      }
-    });
-  }
-
-  void _nextQuestion() {
-    setState(() {
-      _currentQuestionIndex = Random().nextInt(_questions.length); // Randomly select next question
-      _showResult = false;
-    });
-  }
-}
-
-class Question {
-  final String questionText;
-  final List<String> options;
-  String correctAnswer;
-  String selectedAnswer = '';
-  bool isCorrect = false;
-
-  Question(this.questionText, this.options, this.correctAnswer);
 }

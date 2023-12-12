@@ -1,6 +1,8 @@
 # FLE-Project French Quiz
 
-ACe projet FLE-Project met en œuvre une application de quiz en français. Il permet aux utilisateurs de répondre à des questions à choix multiples et affiche les résultats. L'application inclut également une fonctionnalité de santé du boss, où le boss perd de la santé lorsque les questions sont correctement répondues.
+MASSION Enora, PHAN Sophie, JOYAT Sandra 
+
+Ce projet FLE-Project met en œuvre une application de quiz en français. Il permet aux utilisateurs de répondre à des questions à choix multiples et affiche les résultats. L'application inclut également une fonctionnalité de santé du boss, où le boss perd de la santé lorsque les questions sont correctement répondues.
 
 ## Structure du Projet
 
