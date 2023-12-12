@@ -83,7 +83,7 @@ class Accueil extends StatelessWidget {
                               maxWidth: 298 * fem,
                             ),
                             child: Text(
-                              'Disclaimer : Aucun petit-ami n’a été violenté pour les besoins de ce prototype',
+                              "Disclaimer : Aucun petit-ami n’a été violenté pour les besoins de ce prototype",
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont(
                                 'Plus Jakarta Sans',
@@ -128,7 +128,7 @@ class Accueil extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Commencez maintenant',
+                                  'Commencer maintenant',
                                   style: SafeGoogleFont(
                                     'Plus Jakarta Sans',
                                     fontSize: 18 * ffem,
