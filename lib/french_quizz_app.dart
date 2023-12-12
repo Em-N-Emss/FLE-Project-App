@@ -77,8 +77,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
                     child : LimitedBox(
                       maxWidth : 200,
                       maxHeight : 200,
-                      child : Lottie.network("https://lottie.host/644bc77a-bff5-44e4-a4b7-0631692f3d19/eIr0zP64im.json"),
-                      
+                      child : Lottie.network("https://lottie.host/644bc77a-bff5-44e4-a4b7-0631692f3d19/eIr0zP64im.json"),  
                     )
                   ),
                   Text(
@@ -130,6 +129,14 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
                 ],
               ),
             if (_showResult)
+            Align(
+              child : LimitedBox(
+                maxWidth : 200,
+                maxHeight : 200,
+                child : Lottie.network("https://lottie.host/178c5a84-09ca-43c5-89e3-2d6e0798b213/2o4VQAe4pK.json"),  
+              )
+            ),
+            if (_showResult)
               Text(
                 _userChoice,
                 //style: TextStyle(fontSize: 28.0),
@@ -145,6 +152,7 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
                   ],
                 ),
               ),
+            
             if (_showResult)
               SizedBox(height: 20.0),
             if (_showResult)
