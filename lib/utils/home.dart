@@ -5,16 +5,16 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'utils.dart';
 import 'package:fle_project/french_quizz_app.dart';
+import 'package:fle_project/main.dart';
 
 class Accueil extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return Container(
-      width: double.infinity,
+    return SingleChildScrollView(
+      //width: double.infinity,
       child: Container(
         // onboardingHMe (5:79)
         padding: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 39 * fem),
@@ -113,11 +113,12 @@ class Accueil extends StatelessWidget {
                               0 * fem, 0 * fem, 0 * fem, 19 * fem),
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FrenchQuizApp()),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => FrenchQuizApp()),
+                              // );
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => QuizPage()));
                             },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
