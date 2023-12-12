@@ -167,10 +167,11 @@ class _QuizPageState extends State<QuizPage> with SingleTickerProviderStateMixin
               'Score: $_score',
               style: TextStyle(
                 fontSize: 28.0,
-                color: Colors.white, // Set the text color to white for contrast
+                fontWeight: FontWeight.bold,
+                color: Colors.black, // Set the text color to white for contrast
                 shadows: [
                   Shadow(
-                    color: Colors.black, // Set the shadow color to black
+                    color: Colors.white, // Set the shadow color to black
                     blurRadius: 50.0,
                   ),
                 ],
