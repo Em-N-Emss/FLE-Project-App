@@ -21,27 +21,6 @@ class MyApp extends StatelessWidget {
         body: SingleChildScrollView(
           child: Accueil(),
         ),
-        bottomNavigationBar: CurvedNavigationBar(
-            backgroundColor: Colors.deepPurple,
-            color: Colors.deepPurple.shade300,
-            animationDuration: Duration(milliseconds: 300),
-            onTap: (index) {
-              print(index);
-            },
-            items: [
-              Icon(
-                Icons.home,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.favorite,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
-            ]),
       ),
     );
   }
